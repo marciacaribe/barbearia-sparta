@@ -1,11 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
+import { RouterLink } from "vue-router";
 
 const menuAberto = ref(false);
-
-const toggleMenu = () => {
-  menuAberto.value = !menuAberto.value;
-};
 
 const fecharMenu = () => {
   menuAberto.value = false;
@@ -15,43 +12,48 @@ const fecharMenu = () => {
 <template>
   <header class="header">
     <div class="container header-container">
-      <a href="#" class="logo"><i class="fa-solid fa-scissors"></i> SPARTA</a>
+      <RouterLink to="/" class="logo" @click="fecharMenu">SPARTA</RouterLink>
 
-      <button class="menu-toggle" id="menuToggle" @click="toggleMenu">
+      <button
+        class="menu-toggle"
+        @click="menuAberto = !menuAberto"
+        aria-label="Abrir Menu"
+      >
         <i class="fa-solid fa-bars"></i>
       </button>
 
       <nav class="nav-menu" :class="{ active: menuAberto }">
-        <a href="#inicio" class="nav-link" @click="fecharMenu">Início</a>
-        <a href="#sobre" class="nav-link" @click="fecharMenu">Sobre</a>
-        <a href="#servicos" class="nav-link" @click="fecharMenu">Serviços</a>
-        <a href="#agendamento" class="nav-link" @click="fecharMenu"
-          >Agendamento</a
+        <RouterLink to="/" class="nav-link" @click="fecharMenu"
+          >Início</RouterLink
         >
-        <a href="#galeria" class="nav-link" @click="fecharMenu">Galeria</a>
-        <a href="#contato" class="nav-link" @click="fecharMenu">Contato</a>
+        <RouterLink to="/sobre" class="nav-link" @click="fecharMenu"
+          >Sobre</RouterLink
+        >
+        <RouterLink to="/servicos" class="nav-link" @click="fecharMenu"
+          >Serviços</RouterLink
+        >
+        <RouterLink to="/agendamento" class="nav-link" @click="fecharMenu"
+          >Agendamento</RouterLink
+        >
+        <RouterLink to="/galeria" class="nav-link" @click="fecharMenu"
+          >Galeria</RouterLink
+        >
+        <RouterLink to="/contato" class="nav-link" @click="fecharMenu"
+          >Contato</RouterLink
+        >
       </nav>
 
-      <a
-        href="https://wa.me/5500999999999?text=Olá,%20gostaria%20de%20agendar%20um%20horário!"
-        target="_blank"
-        class="btn btn-gold btn-header"
+      <RouterLink to="/agendamento" class="btn btn-gold btn-header"
+        >Agendar</RouterLink
       >
-        Agendar Horário
-      </a>
     </div>
-    <!-- Dentro de <nav class="nav-menu" ...> em Header.vue -->
-    <nav class="nav-menu" :class="{ active: menuAberto }">
-      <a href="#inicio" class="nav-link" @click="fecharMenu">Início</a>
-      <a href="#sobre" class="nav-link" @click="fecharMenu">Sobre</a>
-      <a href="#servicos" class="nav-link" @click="fecharMenu">Serviços</a>
-      <a href="#horarios" class="nav-link" @click="fecharMenu">Horários</a>
-      <!-- NOVO LINK -->
-      <a href="#agendamento" class="nav-link" @click="fecharMenu"
-        >Agendamento</a
-      >
-      <a href="#galeria" class="nav-link" @click="fecharMenu">Galeria</a>
-      <a href="#contato" class="nav-link" @click="fecharMenu">Contato</a>
-    </nav>
   </header>
 </template>
+
+<style scoped>
+/* O Vue Router aplica automaticamente esta classe no link da rota atual */
+.nav-link.router-link-active {
+  color: var(--primary-gold);
+  border-bottom: 2px solid var(--primary-gold);
+}
+</style>
